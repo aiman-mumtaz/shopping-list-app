@@ -1,38 +1,38 @@
 import React, { useState, useEffect } from "react";
 
 function List() {
-  const [Lists, setLists] = useState([]);
-  const [newList, setNewList] = useState("");
+  const [Items, setItems] = useState([]);
+  const [newItem, setNewItem] = useState("");
 
-  const saveData = (newLists) => {
-    localStorage.setItem("Lists", JSON.stringify(newLists));
+  const saveData = (newItems) => {
+    localStorage.setItem("Items", JSON.stringify(newItems));
   };
 
   useEffect(() => {
-    if (localStorage.getItem("Lists")) {
-      setLists(JSON.parse(localStorage.getItem("Lists")));
+    if (localStorage.getItem("Items")) {
+      setItems(JSON.parse(localStorage.getItem("Items")));
     }
   }, []);
 
-  const onAddList = () => {
-    if (newList.trim()) {
-      let newLists = [...Lists, { List: newList.trim(), id: Date.now() }];
-      setLists(newLists);
-      setNewList("");
-      saveData(newLists);
+  const onAddItem = () => {
+    if (newItem.trim()) {
+      let newItems = [...Items, { Item: newItem.trim(), id: Date.now() }];
+      setItems(newItems);
+      setNewItem("");
+      saveData(newItems);
     }
   };
 
-  const deleteList = (id) => {
-    let newLists = Lists.filter((List) => List.id !== id);
-    setLists(newLists);
+  const deleteItem = (id) => {
+    let newItems = Items.filter((Item) => Item.id !== id);
+    setItems(newItems);
 
-    saveData(newLists);
+    saveData(newItems);
   };
 
   return (
     <div className="container mt-5">
-      <h3 className="text-center"> Shopping List</h3>
+      <h3 className="text-center"> Shopping Item</h3>
 
       <table className="table table-striped mt-5">
         <thead>
@@ -40,15 +40,15 @@ function List() {
             <th>
               <input
                 type="text"
-                id="ListInput"
+                id="ItemInput"
                 className="form-control"
-                placeholder="Add Items to the List"
-                value={newList}
-                onChange={(e) => setNewList(e.target.value)}
+                placeholder="Add Items to the Item"
+                value={newItem}
+                onChange={(e) => setNewItem(e.target.value)}
               />
             </th>
             <th>
-              <button className="btn btn-secondary btn-block" onClick={onAddList}>
+              <button className="btn btn-secondary btn-block" onClick={onAddItem}>
                 {" "}
                 Add
               </button>
@@ -58,16 +58,16 @@ function List() {
 
         <tr>
             <th scope="col"></th>
-          </tr>
+        </tr>
 
         <tbody id="table">
-          {Lists.map((List) => (
-            <tr key={List.id}>
-              <td>{List.List}</td>
+          {Items.map((Item) => (
+            <tr key={Item.id}>
+              <td>{Item.Item}</td>
               <td>
                 <button
                   className="btn btn-danger"
-                  onClick={() => deleteList(List.id)}
+                  onClick={() => deleteItem(Item.id)}
                 >
                   {" "}
                   Delete{" "}
