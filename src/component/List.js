@@ -32,7 +32,7 @@ function List() {
 
   return (
     <div className="container mt-5">
-      <h3 className="text-center"> Shopping Item</h3>
+      <h3 className="text-center"> Shopping List</h3>
 
       <table className="table table-striped mt-5">
         <thead>
